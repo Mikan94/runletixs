@@ -5,10 +5,10 @@ export default class Start extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Sporty 2.0</Text>
+        <Text>Logo oder Icon einfügen</Text>
         <Button
           title="weiter"
-          onPress={() => this.props.navigation.navigate('Workout')}
+          onPress={() => this.props.navigation.navigate('Run')}
         />
       </View>
     );
@@ -28,10 +28,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  text: {
-    fontSize: 36,
-    padding: 20,
-    textAlign: 'center',
   },
 });

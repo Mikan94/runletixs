@@ -50,6 +50,9 @@ export default createMaterialBottomTabNavigator(
   {
     initialRouteName: 'RouteList',
     order: ['Profil', 'RouteList', 'Setting'],
-    activeTintColor: 'orange',
+    activeColor: 'white',  
+    inactiveColor: '#31917D',  
+    barStyle: { backgroundColor: '#12492f' },
+
   }
 );

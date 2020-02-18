@@ -6,6 +6,8 @@ export default class Finished extends Component {
     return (
       <View style={styles.container}>
         <Text>Finished</Text>
+        <Text>hier Zeit, KM und Schritte, Übungen anzeigen (Gesamtanzahl)</Text>
+        <Text>ggf. auf DB speichern und mit onPress in Profil anzeigen als FlatList</Text>
       </View>
     );
   }

@@ -24,6 +24,7 @@ export default class RouteList extends Component {
           data={this.state.routeList}              
           renderItem={({item}) => (
             <TouchableOpacity
+            style={styles.itemContainer}
               onPress={() => this.props.navigation.navigate('RouteDetail', {
                 route: item.coords,
                 latitude: item.coords[0].latitude,
@@ -35,7 +36,10 @@ export default class RouteList extends Component {
             >
               <View>
                 <Text style={styles.item}>{item.name}</Text>
-            <Text style={styles.details}>{item.distance}km {item.exercise}Übungen</Text>
+                <View style={styles.containerDetails}>
+                  <Text style={styles.details}>{item.distance} km</Text>
+                  <Text style={styles.details}>{item.exercise} Übungen</Text>
+                </View>
               </View>
             </TouchableOpacity>
           )}
@@ -48,15 +52,29 @@ export default class RouteList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
+  },
+  itemContainer: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
   item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    fontSize: 24,
+    fontWeight: '800',
+    marginBottom: 20,
+  },
+  containerDetails: {
+    flex: 2,
+    flexDirection: 'row',
   },
   details: {
-    fontSize: 14,
-    paddingBottom: 50,
+    fontSize: 18,
+    flex: 1,
   }
 });

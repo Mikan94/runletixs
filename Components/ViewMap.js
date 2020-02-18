@@ -94,6 +94,9 @@ export default class ViewMap extends Component {
   render() {
     return (
       <View style={styles.container}>
+        
+
+
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}
@@ -111,12 +114,12 @@ export default class ViewMap extends Component {
           />
         </MapView>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.bubble, styles.button]}>
-            <Text style={styles.bottomBarContent}>
+          <TouchableOpacity>
+            <Text style={styles.button}>
               {parseFloat(this.state.distanceTravelled).toFixed(2)} km
             </Text>
           </TouchableOpacity>
-        </View>
+          </View>
       </View>
     );
   }
@@ -125,32 +128,22 @@ export default class ViewMap extends Component {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   map: {
     ...StyleSheet.absoluteFillObject
   },
-  bubble: {
-    flex: 1,
-    backgroundColor: "rgba(255,255,255,0.7)",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
-  },
   latlng: {
     width: 200,
-    alignItems: "stretch"
   },
   button: {
-    width: 80,
-    paddingHorizontal: 12,
     alignItems: "center",
-    marginHorizontal: 10
+    fontSize: 32,
+    fontWeight: '800',
   },
   buttonContainer: {
     flexDirection: "row",
-    marginVertical: 20,
-    backgroundColor: "transparent"
+    top: 120,
   }
 });

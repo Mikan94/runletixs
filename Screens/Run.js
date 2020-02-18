@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
-import {Pedometer} from 'expo-sensors';
 
 import ProgressBar from '../Components/ProgressBar';
 import ViewMap from '../Components/ViewMap';
+import StoppWatch from '../Components/StoppWatch';
+import CountingSteps from '../Components/CountingSteps';
 
 export default class Run extends Component{
   constructor(props) {
@@ -12,99 +12,43 @@ export default class Run extends Component{
 
     this.state = {
       timer: null,
-      minutes_Counter: '00',
-      seconds_Counter: '00',
       startDisable: false,
-      isPedometerAvailable: "checking",
-      currentStepCount: 0,
+      distanceTravelled: 0,
     }
   }
 
   _onButtonStart = () => {
-    let timer = setInterval(() => {
-      var num = (Number(this.state.seconds_Counter) + 1).toString(),
-        count = this.state.minutes_Counter;
-
-      if (Number(this.state.seconds_Counter) == 59) {
-        count = (Number(this.state.minutes_Counter) + 1).toString();
-        num = '00';
-      }
-
-      this.setState({
-        minutes_Counter: count.length == 1 ? '0' + count : count,
-        seconds_Counter: num.length == 1 ? '0' + num : num,
-      });
-    }, 1000);
-    this.setState({timer});
-
     this.setState({startDisable: true});
-    this._subscribe();
-
+    this.CountingSteps.startCountingSteps();
+    this.StoppWatch.startStoppWatch();
     this.ProgressBar.startProgressbar();
     this.ViewMap.startMap();
 
   }; 
 
   _onButtonStop = () => {
-    clearInterval(this.state.timer);
-    this.setState({startDisable: false});
+    this.StoppWatch.stoppStoppWatch();
     this.ProgressBar.stoppProgressbar();
     this.ViewMap.stoppMap();
   };
 
-  _subscribe = () => {
-    this._subscription = Pedometer.watchStepCount(result => {
-      this.setState({
-        currentStepCount: result.steps
-      });
-    });
-
-    Pedometer.isAvailableAsync().then(
-      result => {
-        this.setState({
-          isPedometerAvailable: String(result)
-        });
-      },
-      error => {
-        this.setState({
-          isPedometerAvailable: "Could not get isPedometerAvailable: " + error
-        });
-      }
-    );
-
-    
-
-    const end = new Date();
-    const start = new Date();
-    start.setDate(end.getDate() - 1);
-    Pedometer.getStepCountAsync(start, end).then(
-      result => {
-        this.setState({ pastStepCount: result.steps });
-      },
-      error => {
-        this.setState({
-          pastStepCount: "Could not get stepCount: " + error
-        });
-      }
-    );
-  };
-
-
   render() {
+    const distanceTravelled = this.distanceTravelled;
+
     return (
       <View style={styles.MainContainer}>
         <ViewMap ref={ref => (this.ViewMap = ref)} />
 
+        <View style={styles.containerInfo}>
+          <View stlye={styles.containerWatchBar}>
+            <StoppWatch ref={ref => (this.StoppWatch = ref)} />
+            <ProgressBar ref={ref => (this.ProgressBar = ref)} />
+          </View>
+            
+            <CountingSteps ref={ref => (this.CountingSteps = ref)}/>
+        </View>
         
-
-        <ProgressBar ref={ref => (this.ProgressBar = ref)} />
-
-
-        <Text style={styles.counterText}>{this.state.currentStepCount}</Text>
-
-        <Text style={styles.counterText}>
-          {this.state.minutes_Counter} : {this.state.seconds_Counter}
-        </Text>
+        
 
         <TouchableOpacity
           onPress={this._onButtonStart}
@@ -115,7 +59,7 @@ export default class Run extends Component{
           ]}
           disabled={this.state.startDisable}
         >
-          <Text style={styles.buttonText}>START</Text>
+  <Text style={styles.buttonText}>{this.distanceTravelled}START</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -149,10 +93,13 @@ export default class Run extends Component{
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
+  containerWatchBar: {
+
+  },
+  containerInfo: {
+   
+  },  
   button: {
     width: '80%',
     paddingTop: 8,

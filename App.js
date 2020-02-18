@@ -8,7 +8,6 @@ const MainNavigator = createStackNavigator({
   Start: {
     screen: Start,
   },
-
   Menu: {
     screen: Menu,
     navigationOptions: {

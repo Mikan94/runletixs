@@ -6,7 +6,7 @@ export default class ProgressBar extends Component {
     super(props);
     this.startProgressbar = this.startProgressbar.bind(this);
     this.stoppProgressbar = this.stoppProgressbar.bind(this);
-  }
+    }
 
     state={  
         progressStatus: 60,
@@ -52,19 +52,27 @@ export default class ProgressBar extends Component {
 }
 
 const styles = StyleSheet.create({  
-  container: {  
-    flexDirection: 'column',
-    alignItems: 'center',
+    container: {  
+    width: "100%",  
+    height: 40,  
+    padding: 3,  
+    borderColor: "#FAA",  
+    borderWidth: 3,  
+    borderRadius: 30,  
+    marginTop: 200,  
+    justifyContent: "center",  
   },  
   inner:{  
     width: "100%",  
     height: 30,  
     borderRadius: 15,  
-    backgroundColor:"green",
+    backgroundColor:"green",  
   },  
   label:{  
     fontSize:23,  
-    color: "black",
-    position: 'absolute',
+    color: "black",  
+    position: "absolute",  
+    zIndex: 1,  
+    alignSelf: "center",  
   }  
 });  

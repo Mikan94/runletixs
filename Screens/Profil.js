@@ -6,6 +6,7 @@ export default class Profil extends Component {
     return (
       <View style={styles.container}>
         <Text>Profil</Text>
+        <Text>ggf. Flatlist mit gemachten Läufen anzeigen, aus DB fetchen</Text>
       </View>
     );
   }

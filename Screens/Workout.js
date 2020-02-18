@@ -1,6 +1,8 @@
 import React, {Component} from 'react';  
 import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity, FlatList} from 'react-native';
 import axios from 'axios';
+
+import ProgressBarWorkout from '../Components/ProgressBarWorkout';
   
 export default class Workout extends Component {  
     state={  
@@ -22,21 +24,12 @@ export default class Workout extends Component {
 
   anim = new Animated.Value(60);  
   onButtonStart(){
-      _animateHandler = Animated.timing(
-        this.anim.addListener(({value})=> {  
-          this.setState({progressStatus: parseInt(value,10)});  
-      }),
-      Animated.timing(this.anim,{  
-           toValue: 0,  
-           duration: 59000,  
-      }).start()
-      );
+    this.ProgressBarWorkout.startProgressbar();
+    
   }
 
   onButtonStopp(){
-    _animateHandler = Animated.timing(
-    Animated.timing(this.anim).stop()
-    );
+    this.ProgressBarWorkout.stoppProgressbar(); 
 }
 
   render() {
@@ -46,18 +39,7 @@ export default class Workout extends Component {
     <Text>{this.state.workoutList.title}</Text>
   <Text>{this.state.workoutList.description}</Text>
 
-  <View style={styles.containerProgressBar}>
-
-            <Animated.View  
-                style={[  
-                    styles.inner,{width: this.state.progressStatus +"%"},  
-                ]}  
-            />  
-            <Animated.Text style={styles.label}>  
-                    {this.state.progressStatus } Sekunden  
-            </Animated.Text>  
-
-           
+            <ProgressBarWorkout ref={ref => (this.ProgressBarWorkout = ref)} />
 
             <TouchableOpacity onPress={() => this.onButtonStart()} style={styles.btnContent}>
             <View><Text>Start Animated</Text></View>
@@ -70,7 +52,7 @@ export default class Workout extends Component {
             <View><Text>Fetisch!</Text></View>
             </TouchableOpacity>
               </View>
-      </View>  
+
     );  
   }  
 }

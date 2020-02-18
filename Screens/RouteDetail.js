@@ -10,7 +10,6 @@ export default class RouteDetail extends Component {
     const name = this.props.navigation.getParam('name', 'no data')
     const distance = this.props.navigation.getParam('distance', 'no data')
     const exercise = this.props.navigation.getParam('exercise', 'no data')
-    const alertTime = distance/exercise;
 
     return (
       <View style={styles.container}>
@@ -29,20 +28,21 @@ export default class RouteDetail extends Component {
           <Marker
          coordinate={{latitude: latitude, longitude: longitude }}>
           </Marker>
-
-          <View>
-            <Text>Name: {name}</Text>
-            <Text>Distanz: {distance}km </Text>
-            <Text>Übungen: {exercise}</Text>
-            <Text>Time: {alertTime}</Text>
-          </View>
         </MapView>
 
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('Run')}>
-            <Text style={styles.text}>starten</Text>
-        </TouchableOpacity>
+        <View style={styles.itemContainer}> 
+              <Text style={styles.item}>{name}</Text>
+              <View style={styles.containerDetails}>
+                <Text style={styles.details}>{distance} km</Text>
+                <Text style={styles.details}>{exercise} Übungen</Text>
+              </View>
+          </View>
+          
+          <View style={styles.btnContainer}>
+            <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Run')}>
+              <Text style={styles.btnText}>Start</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -51,29 +51,55 @@ export default class RouteDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  text: {
-    fontSize: 16,
-    padding: 10,
-    textAlign: 'center',
-    color: 'white',
-  },  
-  btn: {
-    backgroundColor: 'black',
-    textAlign: 'center',
-    color: 'red',
-    bottom: 50,
-    position: 'absolute',
+  itemContainer: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    height: 100,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
-  btn2: {
-    backgroundColor: 'black',
-    textAlign: 'center',
-    color: 'red',
-    bottom: 150,
-    position: 'absolute',
+  item: {
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  containerDetails: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  details: {
+    fontSize: 18,
+    flex: 1,
+  }, 
+  btnContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    bottom: 50,
+  },
+  btn: {
+    backgroundColor: '#f7a325',
+    color: 'white',
+    height: 50,
+    width: 150,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '700',
   }
 });
