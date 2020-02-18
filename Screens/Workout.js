@@ -1,23 +1,24 @@
 import React, {Component} from 'react';  
-import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity, FlatList} from 'react-native';
 import axios from 'axios';
   
 export default class Workout extends Component {  
     state={  
         progressStatus: 60,
         x: 0,
-        workoutList: []
+        workoutList: [],
     }  
   
     componentDidMount(){
+      const randomNumber = [Math.floor(Math.random()*10)];
       axios.get('http://localhost:5000/workout').then(res => {
-      const workoutList = res.data;
+      const workoutList = res.data[randomNumber];
       this.setState({workoutList});
     })
     .catch((error) => {
       console.log(error);
-   })
-    } 
+    })
+  } 
 
   anim = new Animated.Value(60);  
   onButtonStart(){
@@ -39,15 +40,13 @@ export default class Workout extends Component {
 }
 
   render() {
-    const item = this.state.workoutList[Math.floor(Math.random() * this.state.workoutList.length)];
-
-
     return (  
       <View style={styles.container}>  
 
-            <Text>{item}</Text>
-            <Text>test</Text>
+    <Text>{this.state.workoutList.title}</Text>
+  <Text>{this.state.workoutList.description}</Text>
 
+  <View style={styles.containerProgressBar}>
 
             <Animated.View  
                 style={[  
@@ -70,15 +69,18 @@ export default class Workout extends Component {
             <TouchableOpacity style={styles.btnContent} onPress={() => this.props.navigation.navigate('Run')}>
             <View><Text>Fetisch!</Text></View>
             </TouchableOpacity>
-            
+              </View>
       </View>  
     );  
   }  
 }
-const styles = StyleSheet.create({  
-    container: {  
-    width: "100%",  
-    height: 40,  
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    containerProgressBar: {  
+    width: "100%",
+    height: 40,
     padding: 3,  
     borderColor: "#FAA",  
     borderWidth: 3,  

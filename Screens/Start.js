@@ -8,7 +8,7 @@ export default class Start extends Component {
         <Text>Sporty 2.0</Text>
         <Button
           title="weiter"
-          onPress={() => this.props.navigation.navigate('Onboarding')}
+          onPress={() => this.props.navigation.navigate('Workout')}
         />
       </View>
     );
