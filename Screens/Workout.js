@@ -1,13 +1,22 @@
 import React, {Component} from 'react';  
-import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity} from 'react-native';  
+import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity} from 'react-native';
+import axios from 'axios';
   
 export default class Workout extends Component {  
     state={  
         progressStatus: 60,
-        x: 0,  
+        x: 0,
+        workoutList: []
     }  
   
     componentDidMount(){
+      axios.get('http://localhost:5000/workout').then(res => {
+      const workoutList = res.data;
+      this.setState({workoutList});
+    })
+    .catch((error) => {
+      console.log(error);
+   })
     } 
 
   anim = new Animated.Value(60);  
@@ -29,12 +38,17 @@ export default class Workout extends Component {
     );
 }
 
-  
+  render() {
+    const item = this.state.workoutList[Math.floor(Math.random() * this.state.workoutList.length)];
 
 
-  render() {  
     return (  
       <View style={styles.container}>  
+
+            <Text>{item}</Text>
+            <Text>test</Text>
+
+
             <Animated.View  
                 style={[  
                     styles.inner,{width: this.state.progressStatus +"%"},  
@@ -56,7 +70,7 @@ export default class Workout extends Component {
             <TouchableOpacity style={styles.btnContent} onPress={() => this.props.navigation.navigate('Run')}>
             <View><Text>Fetisch!</Text></View>
             </TouchableOpacity>
-
+            
       </View>  
     );  
   }  
