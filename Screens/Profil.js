@@ -5,7 +5,7 @@ export default class Profil extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Profil</Text>
+        <Text style={styles.text}>Profil</Text>
         <Text>ggf. Flatlist mit gemachten Läufen anzeigen, aus DB fetchen</Text>
       </View>
     );
@@ -14,22 +14,12 @@ export default class Profil extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    marginTop: 50,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    flex: 1,
+    top: 100,
+    left: 30,
   },
   text: {
-    fontSize: 36,
-    padding: 20,
-    textAlign: 'center',
-  },
+    fontSize: 64,
+    fontWeight: '900',
+  }
 });

@@ -37,42 +37,40 @@ export default class ProgressBar extends Component {
   render() {  
     return (  
       <View style={styles.container}>  
-            <Animated.View  
-                style={[  
-                    styles.inner,{width: this.state.progressStatus +"%"},  
-                ]}  
-            />  
-            <Animated.Text style={styles.label}>  
-                    {this.state.progressStatus } Sekunden  
-            </Animated.Text>
-
+        <Animated.View  
+          style={styles.inner}/>  
+        <Animated.Text style={styles.label}>  
+          {this.state.progressStatus } Sekunden  
+        </Animated.Text>
       </View>  
     );  
   }
 }
 
 const styles = StyleSheet.create({  
-    container: {  
-    width: "100%",  
-    height: 40,  
-    padding: 3,  
-    borderColor: "#FAA",  
-    borderWidth: 3,  
-    borderRadius: 30,  
-    marginTop: 200,  
-    justifyContent: "center",  
+  container: {  
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+    width: 0,
+    height: 0,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,  
   },  
   inner:{  
-    width: "100%",  
-    height: 30,  
+    width: "90%",  
+    height: 50,  
     borderRadius: 15,  
-    backgroundColor:"green",  
+    backgroundColor: '#f7a325',  
   },  
   label:{  
-    fontSize:23,  
-    color: "black",  
-    position: "absolute",  
-    zIndex: 1,  
-    alignSelf: "center",  
+    fontSize: 24,
+    fontWeight: '500',  
+    color: '#0a2f35',
+    position: 'absolute',
+    padding: 10,  
   }  
 });  
