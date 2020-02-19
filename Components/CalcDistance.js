@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import {StyleSheet, View, Text, TouchableOpacity, Platform, PermissionsAndroid } from "react-native";
-import MapView, {Marker, AnimatedRegion, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
+import AnimatedRegion from "react-native-maps";
 import haversine from "haversine";
+import Icon from 'react-native-vector-icons/FontAwesome5';
+const running = (<Icon name="running" size="24" color="#0a2f35" />)
 
 // const LATITUDE = 29.95539;
 // const LONGITUDE = 78.07513;
@@ -10,12 +12,9 @@ const LONGITUDE_DELTA = 0.009;
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 
-export default class ViewMap extends Component {
+export default class CalcDistance extends Component {
   constructor(props) {
     super(props);
-
-    this.startMap = this.startMap.bind(this);
-    this.stoppMap = this.stoppMap.bind(this);
 
     this.state = {
       latitude: LATITUDE,
@@ -75,10 +74,6 @@ export default class ViewMap extends Component {
     );
   }
 
-  stoppMap() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
   getMapRegion = () => ({
     latitude: this.state.latitude,
     longitude: this.state.longitude,
@@ -94,42 +89,20 @@ export default class ViewMap extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          showUserLocation
-          followUserLocation
-          loadingEnabled
-          region={this.getMapRegion()}
-        >
-          <Polyline coordinates={this.state.routeCoordinates} strokeWidth={5} />
-          <Marker.Animated
-            ref={marker => {this.marker = marker;}}
-            coordinate={this.state.coordinate}
-          />
-        </MapView>
+        <TouchableOpacity>
+            <Text style={styles.button}>
+              {parseFloat(this.state.distanceTravelled).toFixed(2)} {running}
+            </Text>
+          </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject
-  },
-  latlng: {
-    width: 200,
-  },
   button: {
-    alignItems: "center",
-    fontSize: 32,
-    fontWeight: '800',
+    fontSize: 28,
+    fontWeight: '500',
+    color: '#0a2f35'
   },
-  buttonContainer: {
-    flexDirection: "row",
-    top: 120,
-  }
 });

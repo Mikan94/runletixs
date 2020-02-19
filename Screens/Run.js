@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+const close = (<Icon name="door-open" size={24} color="#fff" />)
+const pause = (<Icon name="pause" size={24} color="#fff" />)
+const play = (<Icon name="play" size={24} color="#fff" />)
+const dumbbell = (<Icon name="dumbbell" size={24} color="#fff" />)
+
 
 import ProgressBar from '../Components/ProgressBar';
 import ViewMap from '../Components/ViewMap';
 import StoppWatch from '../Components/StoppWatch';
 import CountingSteps from '../Components/CountingSteps';
+import CalcDistance from '../Components/CalcDistance';
 
 export default class Run extends Component{
   constructor(props) {
@@ -13,7 +20,6 @@ export default class Run extends Component{
     this.state = {
       timer: null,
       startDisable: false,
-      distanceTravelled: 0,
     }
   }
 
@@ -27,14 +33,13 @@ export default class Run extends Component{
   }; 
 
   _onButtonStop = () => {
+    this.setState({startDisable: false});
     this.StoppWatch.stoppStoppWatch();
     this.ProgressBar.stoppProgressbar();
     this.ViewMap.stoppMap();
   };
 
   render() {
-    const distanceTravelled = this.distanceTravelled;
-
     return (
       <View style={styles.MainContainer}>
         <ViewMap ref={ref => (this.ViewMap = ref)} />
@@ -44,47 +49,51 @@ export default class Run extends Component{
             <StoppWatch ref={ref => (this.StoppWatch = ref)} />
             <ProgressBar ref={ref => (this.ProgressBar = ref)} />
           </View>
-            
-            <CountingSteps ref={ref => (this.CountingSteps = ref)}/>
+          <View style={styles.containerDistanceSteps}>
+            <CalcDistance style={styles.details} ref={ref => (this.CalcDistance = ref)} />
+            <CountingSteps style={styles.details} ref={ref => (this.CountingSteps = ref)}/>
+          </View> 
         </View>
         
-        
+        <View style={styles.containerButtons}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Finished')}
+            activeOpacity={0.6}
+            style={[styles.button, {backgroundColor: '#f7a325'}]}>
+              <Text style={styles.buttonText}>{close}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={this._onButtonStart}
-          activeOpacity={0.6}
-          style={[
-            styles.button,
-            {backgroundColor: this.state.startDisable ? '#B0BEC5' : '#FF6F00'},
-          ]}
-          disabled={this.state.startDisable}
-        >
-  <Text style={styles.buttonText}>{this.distanceTravelled}START</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this._onButtonStop}
+            activeOpacity={0.6}
+            style={[
+              styles.button,
+              {borderTopRightRadius: 0},
+              {borderBottomRightRadius: 0},
+              {marginRight: -5},
+              {backgroundColor: this.state.startDisable ? '#f7a325' : '#B0BEC5'},]}>
+                <Text style={styles.buttonText}>{pause}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={this._onButtonStop}
-          activeOpacity={0.6}
-          style={[styles.button, {backgroundColor: '#FF6F00'}]}
-        >
-          <Text style={styles.buttonText}>STOP</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Finished')}
-          activeOpacity={0.6}
-          style={[styles.button, {backgroundColor: '#FF6F00'}]}
-        >
-          <Text style={styles.buttonText}>Beenden</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Workout')}
-          activeOpacity={0.6}
-          style={[styles.button, {backgroundColor: '#FF6F00'}]}
-        >
-          <Text style={styles.buttonText}>Übung</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this._onButtonStart}
+            activeOpacity={0.6}
+            style={[
+              styles.button,
+              {borderTopLeftRadius: 0},
+              {borderBottomLeftRadius: 0},
+              {backgroundColor: this.state.startDisable ? '#B0BEC5' : '#f7a325'},]}
+              disabled={this.state.startDisable}>
+                <Text style={styles.buttonText}>{play}</Text>
+          </TouchableOpacity>
+         
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Workout')}
+            activeOpacity={0.6}
+            style={[styles.button, {backgroundColor: '#f7a325'}]}>
+              <Text style={styles.buttonText}>{dumbbell}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -98,14 +107,43 @@ const styles = StyleSheet.create({
 
   },
   containerInfo: {
-   
-  },  
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+	  width: 0,
+	  height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  containerDistanceSteps: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  containerButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    shadowColor: "#000",
+    shadowOffset: {
+	  width: 3,
+	  height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
   button: {
-    width: '80%',
-    paddingTop: 8,
-    paddingBottom: 8,
-    borderRadius: 7,
-    marginTop: 10,
+    width: '20%',
+    padding: 16,
+    borderRadius: 10,
+    margin: 5,
+    bottom: 32,
+    justifyContent: 'center',
   },
   buttonText: {
     color: '#fff',
@@ -126,6 +164,9 @@ const styles = StyleSheet.create({
     position: "absolute",  
     zIndex: 1,  
     alignSelf: "center",  
-  } 
+  },
+  details: {
+    
+  }
 
 });

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
-import MapView, { Marker, Polygon } from 'react-native-maps';
+import MapView, { Marker, Polygon, PROVIDER_GOOGLE } from 'react-native-maps';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+const running = (<Icon name="running" size="20" color="#0a2f35" />)
+const dumbbell = (<Icon name="dumbbell" size="20" color="#0a2f35" />)
 
 export default class RouteDetail extends Component {
   render() { 
@@ -15,6 +18,7 @@ export default class RouteDetail extends Component {
       <View style={styles.container}>
         <MapView
         style={styles.map}
+        provider={PROVIDER_GOOGLE}
         region={{
           latitude: latitude,
           longitude: longitude,
@@ -25,22 +29,23 @@ export default class RouteDetail extends Component {
         <Polygon
           coordinates={route}/>
 
-          <Marker
-         coordinate={{latitude: latitude, longitude: longitude }}>
-          </Marker>
+          <Marker.Animated
+            ref={marker => {this.marker = marker;}}
+            coordinate={{latitude: latitude, longitude: longitude }}>
+          </Marker.Animated>
         </MapView>
 
         <View style={styles.itemContainer}> 
               <Text style={styles.item}>{name}</Text>
               <View style={styles.containerDetails}>
-                <Text style={styles.details}>{distance} km</Text>
-                <Text style={styles.details}>{exercise} Übungen</Text>
+                <Text style={styles.details}>{running}   {distance} km</Text>
+                <Text style={styles.details}>{dumbbell}   {exercise} Übungen</Text>
               </View>
           </View>
           
           <View style={styles.btnContainer}>
             <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Run')}>
-              <Text style={styles.btnText}>Start</Text>
+              <Text style={styles.btnText}>Let's go</Text>
             </TouchableOpacity>
           </View>
       </View>
@@ -60,15 +65,17 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 10,
-    height: 100,
+    height: 120,
     flexDirection: 'column',
     justifyContent: 'center',
   },
   item: {
     fontSize: 24,
     fontWeight: '800',
+    color: '#0a2f35',
+    marginBottom: 20,
   },
   containerDetails: {
     flex: 2,
@@ -79,6 +86,7 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 18,
     flex: 1,
+    color: '#0a2f35'
   }, 
   btnContainer: {
     flex: 1,

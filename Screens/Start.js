@@ -8,7 +8,7 @@ export default class Start extends Component {
         <Text>Logo oder Icon einfügen</Text>
         <Button
           title="weiter"
-          onPress={() => this.props.navigation.navigate('Run')}
+          onPress={() => this.props.navigation.navigate('RouteList')}
         />
       </View>
     );

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+const stopwatch = (<Icon name="stopwatch" size="32" color="#0a2f35" />)
 
 export default class StoppWatch extends Component{
   constructor(props) {
@@ -46,7 +48,7 @@ export default class StoppWatch extends Component{
     return (
       <View>
         <Text style={styles.container}>
-          {this.state.minutes_Counter} : {this.state.seconds_Counter}
+          {this.state.minutes_Counter} : {this.state.seconds_Counter} {stopwatch}
         </Text>
       </View>
     );
@@ -55,10 +57,11 @@ export default class StoppWatch extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    fontSize: 48,
-    color: '#000',
+    fontSize: 56,
+    color: '#0a2f35',
     fontWeight: '800',
     flexDirection: 'column',
+    marginBottom: 20,
     alignSelf: 'center',
   },
 });

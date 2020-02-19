@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
 import {Pedometer} from 'expo-sensors';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+const shoeprints = (<Icon name="shoe-prints" size="24" color="#0a2f35" />)
 
 export default class CountingSteps extends Component{
   constructor(props) {
@@ -54,17 +56,16 @@ export default class CountingSteps extends Component{
   render() {
     return (
       <View>
-        <Text style={styles.counterText}>{this.state.currentStepCount}</Text>
+  <Text style={styles.text}>{this.state.currentStepCount} {shoeprints}</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  counterText: {
-    fontSize: 48,
-    color: '#000',
-    fontWeight: '800',
-
-  },
+  text: {
+    fontSize: 28,
+    fontWeight: '500',
+    color: '#0a2f35',
+  }
 });
