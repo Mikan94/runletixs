@@ -40,7 +40,7 @@ export default class ProgressBar extends Component {
     return (  
       <View style={styles.container}>  
             <Animated.View  
-                style={styles.inner}/>  
+                style={[styles.inner, {width: this.state.progressStatus * 3},]}/>  
             <Animated.Text style={styles.label}>  
                     {this.state.progressStatus} Meter {dumbbell} 
             </Animated.Text>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     width: "90%",  
     height: 50,  
     borderRadius: 15,  
-    backgroundColor: '#f7a325',
+    backgroundColor: '#f56038',
   },  
   label:{  
     fontSize: 24,

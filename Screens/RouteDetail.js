@@ -6,6 +6,8 @@ const running = (<Icon name="running" size="20" color="#0a2f35" />)
 const dumbbell = (<Icon name="dumbbell" size="20" color="#0a2f35" />)
 
 export default class RouteDetail extends Component {
+
+  //Konstanten-Erstellung von den Daten, die der vorherige Screen (RouteList) diesem übergeben hat
   render() { 
     const route = this.props.navigation.getParam('route', 'no data')
     const latitude = this.props.navigation.getParam('latitude', 'no data')
@@ -16,6 +18,7 @@ export default class RouteDetail extends Component {
 
     return (
       <View style={styles.container}>
+        {/*MapView zeigt Google Maps die zuvor ausgewählte Route an */}
         <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}
@@ -26,6 +29,7 @@ export default class RouteDetail extends Component {
           longitudeDelta: 0.035
         }}>
 
+        {/* Polygon nimmt sich die Coordinaten aus Route und erstellte eine Route mt Markerns */}
         <Polygon
           coordinates={route}/>
 
@@ -35,6 +39,7 @@ export default class RouteDetail extends Component {
           </Marker.Animated>
         </MapView>
 
+        {/* wiederholte Infomrationsausgabe aus dem vorherigen Screen (RouteList) */}
         <View style={styles.itemContainer}> 
               <Text style={styles.item}>{name}</Text>
               <View style={styles.containerDetails}>
@@ -43,6 +48,7 @@ export default class RouteDetail extends Component {
               </View>
           </View>
           
+          {/* Button führt zum nächsten Screen (Run), wo die AKtivität startet */}
           <View style={styles.btnContainer}>
             <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Run')}>
               <Text style={styles.btnText}>Let's go</Text>

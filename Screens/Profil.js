@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
+
+//Profilansicht des Nutzers
+//kann noch ausgebaut werden, siehe Anweisung unten
 export default class Profil extends Component {
   render() {
     return (

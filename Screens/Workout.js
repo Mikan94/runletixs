@@ -9,13 +9,17 @@ const running = (<Icon name="running" size={24} color="#fff" />)
 
 import ProgressBarWorkout from '../Components/ProgressBarWorkout';
   
-export default class Workout extends Component {  
-    state={  
-        progressStatus: 60,
-        x: 0,
-        workoutList: [],
-        startDisable: false,
-    }  
+export default class Workout extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      progressStatus: 60,
+      x: 0,
+      workoutList: [],
+      startDisable: false,
+    }
+  } 
   
     componentDidMount(){
       const randomNumber = [Math.floor(Math.random()*10)];
@@ -28,14 +32,18 @@ export default class Workout extends Component {
     })
   } 
 
-  anim = new Animated.Value(60);  
-  onButtonStart(){
+   //Mit onPress wird diese Funktion ausgeführt, die dann in den Componenten
+  //weitere Funktionen ausführt
+  
+  onButtonStart = () => {
     this.setState({startDisable: true});
     this.ProgressBarWorkout.startProgressbar();
     
   }
 
-  onButtonStopp(){
+   //Mit onPress wird diese Funktion ausgeführt, die dann in den Componenten
+  //weitere Funktionen ausführt
+  onButtonStopp = () => {
     this.setState({startDisable: false});
     this.ProgressBarWorkout.stoppProgressbar(); 
 }

@@ -6,7 +6,7 @@ const pause = (<Icon name="pause" size={24} color="#fff" />)
 const play = (<Icon name="play" size={24} color="#fff" />)
 const dumbbell = (<Icon name="dumbbell" size={24} color="#fff" />)
 
-
+//Imort einzelner Komponenten
 import ProgressBar from '../Components/ProgressBar';
 import ViewMap from '../Components/ViewMap';
 import StoppWatch from '../Components/StoppWatch';
@@ -23,6 +23,8 @@ export default class Run extends Component{
     }
   }
 
+  //Mit onPress wird diese Funktion ausgeführt, die dann in den Componenten
+  //weitere Funktionen ausführt
   _onButtonStart = () => {
     this.setState({startDisable: true});
     this.CountingSteps.startCountingSteps();
@@ -32,6 +34,8 @@ export default class Run extends Component{
 
   }; 
 
+   //Mit onPress wird diese Funktion ausgeführt, die dann in den Componenten
+  //weitere Funktionen ausführt
   _onButtonStop = () => {
     this.setState({startDisable: false});
     this.StoppWatch.stoppStoppWatch();

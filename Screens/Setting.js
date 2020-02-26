@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
+//Settingansicht der App, kann noch ausgebaut werden
+
 export default class Setting extends Component {
   render() {
     return (

@@ -10,6 +10,7 @@ export default class RouteList extends Component {
     routeList: []
   }
 
+  //Funktion fetcht Daten von DB und pusht diese in ein Array in State
   componentDidMount() {
     axios.get('http://localhost:5000/route').then(res => {
       const routeList = res.data;
@@ -24,6 +25,11 @@ export default class RouteList extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.containerContent}>
+
+          {/*Flatlist erstellt eine Liste von alle im State "routeList" befindlichen
+          Einträgen */}
+          {/*per Klick auf einen Eintrag werden weitere Daten an den nächsten
+            Screen gegeben, um diese dort weiterzuverarbeiten */} 
           <FlatList
             data={this.state.routeList}              
             renderItem={({item}) => (
@@ -38,6 +44,8 @@ export default class RouteList extends Component {
                   exercise: item.exercise,
                 })}
               >
+
+                {/*einfache Informationsaussgabe aus dem State Array*/}
                 <View style={styles.containerIcon}>
                   <Text style={styles.item}>{item.name}</Text>
                   <View style={styles.containerDetails}>

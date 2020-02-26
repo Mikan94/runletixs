@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  
 import {Platform, StyleSheet, Text, View, Animated, TouchableOpacity} from 'react-native';  
   
-export default class ProgressBar extends Component {
+export default class ProgressBarWorkout extends Component {
   constructor(props){
     super(props);
     this.startProgressbar = this.startProgressbar.bind(this);
@@ -38,7 +38,7 @@ export default class ProgressBar extends Component {
     return (  
       <View style={styles.container}>  
         <Animated.View  
-          style={styles.inner}/>  
+          style={[styles.inner, {width: this.state.progressStatus *5},]}/>  
         <Animated.Text style={styles.label}>  
           {this.state.progressStatus } Sekunden  
         </Animated.Text>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     width: "90%",  
     height: 50,  
     borderRadius: 15,  
-    backgroundColor: '#f7a325',  
+    backgroundColor: '#f56038',  
   },  
   label:{  
     fontSize: 24,

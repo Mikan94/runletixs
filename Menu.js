@@ -12,9 +12,13 @@ import Run from './Screens/Run';
 import Workout from './Screens/Workout';
 import Finished from './Screens/Finished';
 
+
+//hier findet die komplette Verlinkung aller Screens statt
+//MenuStack -> Verlinkung der Screens untereinander
+//BottomTabNavigator -> erstellt einfach Bottom Navigationsstruktur
+
 class Menu extends Component {
 }
-
 const MenuStack = createStackNavigator({
   RouteList: {
     screen: RouteList,
@@ -24,6 +28,7 @@ const MenuStack = createStackNavigator({
   },
   RouteDetail: {
     screen: RouteDetail,
+
   },
   Run: {
     screen: Run,
@@ -36,6 +41,9 @@ const MenuStack = createStackNavigator({
   },
   Finished: {
     screen: Finished,
+    navigationOptions: {
+      header: null,
+    },
   }
 });
 
